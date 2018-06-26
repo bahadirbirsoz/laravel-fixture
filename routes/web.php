@@ -15,7 +15,7 @@ Route::get('/', function () {
 });
 
 
-Route::get('/play/{id}', 'MatchController@playWeek');
+Route::post('/play/{id}', 'MatchController@playWeek');
 
 Route::get('/week/{id}', 'MatchController@week');
 

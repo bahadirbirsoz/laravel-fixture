@@ -20,6 +20,13 @@
         <fixture></fixture>
     </div>
 
+    <div class="row">
+        <div class="col-md-6">
+            <thisweek></thisweek>
+        </div>
+    </div>
+
+
 </main><!-- /.container -->
 
 <script type="text/javascript" src="/app.min.js"></script>

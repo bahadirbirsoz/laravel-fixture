@@ -45,6 +45,7 @@ class MatchController extends Controller
     public function week($seasonId)
     {
         $season = Season::find($seasonId);
+        $season->week = $season->week ? $season->week : 1;
         $matches = Match::where('week', $season->week)->get();
         foreach ($matches as &$match) {
             $match->home = Team::find($match->home_team_id);
@@ -73,6 +74,7 @@ class MatchController extends Controller
             $match->home = Team::find($match->home_team_id);
             $match->away = Team::find($match->away_team_id);
         }
+        $season->week = $season->week ? $season->week : 1;
         return $this->success([
             'matches' => $matches,
             'season' => $season
@@ -81,7 +83,6 @@ class MatchController extends Controller
 
     protected function playMatch(Match $match)
     {
-        $season = Season::find();
         $match->score_home = 0;
         $match->score_away = 0;
         $homeTeam = Team::find($match->home_team_id);

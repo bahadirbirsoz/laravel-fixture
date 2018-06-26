@@ -24,16 +24,22 @@ fixture
     .row
         .col-md-12
             a.pull-right.btn.btn-warning(onclick="{finish}") Play All
+            | &nbsp;
+            a.pull-right.btn.btn-danger(onclick="{reset}") Reset Fixture
 
-    .row
-        .col-md-6
-            thisweek
+
     script.
         _data = [];
         var self = this;
 
         finish(e){
             rest.post("/match/play-all").then(function () {
+                self.load();
+            });
+        }
+
+        reset(e){
+            rest.post("/fixture/reset").then(function () {
                 self.load();
             });
         }

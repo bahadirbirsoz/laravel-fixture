@@ -7,18 +7,28 @@ thisweek
                 td.col-md-1 {score_home}
                 td.col-md-1 {score_away}
                 td.col-md-5 {away.team}
-
+    a.btn.btn-success(onclick="{play}") Play Week
     script.
         var self = this;
         _data = {
             matches: [],
             season: {}
         }
-        this.on('mount', function () {
+        play(e){
+            rest.post('/play/1').then(function (data) {
+                _data = data;
+                self.update();
+                $("fixture")[0]._tag.load();
+            });
+        }
+
+        load(){
             rest.get('/week/1').then(function (data) {
                 _data = data;
-
                 self.update();
             });
+        }
+        this.on('mount', function () {
+            self.load()
         });
 
