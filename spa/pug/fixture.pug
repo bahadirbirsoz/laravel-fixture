@@ -1,0 +1,51 @@
+fixture
+    h2 Current Point Table
+    table.table-bordered.table.table-hover.table-striped
+        tr
+            th Team
+            th GP
+            th Pts
+            th W
+            th D
+            th L
+            th GF
+            th GA
+            th +/-
+        tr(each="{_data}")
+            td {team}
+            td {games_played}
+            td {point}
+            td {wins}
+            td {draw}
+            td {lost}
+            td {goals_forward}
+            td {goals_against}
+            td {goal_difference}
+    .row
+        .col-md-12
+            a.pull-right.btn.btn-warning(onclick="{finish}") Play All
+
+    .row
+        .col-md-6
+            thisweek
+    script.
+        _data = [];
+        var self = this;
+
+        finish(e){
+            rest.post("/match/play-all").then(function () {
+                self.load();
+            });
+        }
+
+        load(){
+            rest.get('/fixture').then(function (data) {
+                _data = data;
+                self.update();
+            });
+        }
+
+        this.on('mount', function () {
+            self.load();
+        });
+

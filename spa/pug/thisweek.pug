@@ -1,0 +1,24 @@
+thisweek
+    h3 {_data.season.week}. Week Matches
+    table.table-striped.table.table-hover.table-bordered
+        tbody
+            tr.d-flex(each="{_data.matches}")
+                td.col-md-5 {home.team}
+                td.col-md-1 {score_home}
+                td.col-md-1 {score_away}
+                td.col-md-5 {away.team}
+
+    script.
+        var self = this;
+        _data = {
+            matches: [],
+            season: {}
+        }
+        this.on('mount', function () {
+            rest.get('/week/1').then(function (data) {
+                _data = data;
+
+                self.update();
+            });
+        });
+
